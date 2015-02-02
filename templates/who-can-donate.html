@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}{% trans 'Quem pode doar sangue?' %}{% endblock %}
+
+{% block content %}
+
+<h1 class="page-header page-success">{% trans 'Quem pode doar sangue?' %}</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <ul class="list-unstyled">
+            <li><i class="fa fa-check fa-fw text-success"></i> {% trans 'Pessoas entre 16 e 69 anos. Mas, atenção: se o candidato à doação de sangue tem entre 16 e 17 anos ou mais de 60 anos, é  importante conhecer as Normas e documentos necessários para doação de sangue.   Os demais critérios são válidos para todos.' %}</li>
+            <li><i class="fa fa-check fa-fw text-success"></i> {% trans 'Quem tem e está com boa saúde;' %}</li>
+            <li><i class="fa fa-check fa-fw text-success"></i> {% trans 'Quem pesa acima de 50 kg;' %}</li>
+            <li><i class="fa fa-check fa-fw text-success"></i> {% trans 'Quem dormiu bem na noite anterior à doação;' %}</li>
+            <li><i class="fa fa-check fa-fw text-success"></i> {% trans 'Mulheres, mesmo se menstruadas ou em uso de anticoncepcionais.' %}</li>
+        </ul>
+        <p><small class="text-muted">Fonte: Hemominas</small></p>
+        <p>{% trans 'Veja também:' %} <a href="{% url 'who_cant_donate' %}">{% trans 'Quem não pode doar sangue?' %}</a></p>
+    </div>
+</div>
+{% endblock %}

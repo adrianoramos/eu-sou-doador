@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans 'Ops! Ocorreu um erro.' %}{% endblock %}
+
+{% block content %}
+
+<h1 class="page-header">{% trans 'Ocorreu um erro' %}</h1>
+
+<p>{% trans 'Infelizmente, ocorreu um erro. :( ' %}</p>
+
+{% endblock content %}

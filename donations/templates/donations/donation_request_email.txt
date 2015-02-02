@@ -1,0 +1,19 @@
+Caro doador,
+
+O paciente {{ receiver_name }} está precisando de doação de sangue, tipo {{ compatible_blood_types }}, até o dia {{ expiration_date }}. Seu tipo sanguíneo é compatível com o tipo solicitado.
+
+Para efetuar a doação basta informar o nome do paciente no {{ donation_center }} em {{ location }}.
+
+Para obter mais informações basta acessar o link: http://eusoudoador.com.br/precisa-se-de-doadores-de-sangue/{{ donation_id }}/
+
+Ajude-nos, compartilhando o link em suas redes-sociais.
+
+Atenciosamente,
+
+Eu Sou Doador
+http://eusoudoador.com.br
+
+
+
+Você está recebendo este e-mail por que recentemente se disponibilizou como doador de sangue.
+Por favor, não responda esta mensagem; ela foi enviada automaticamente por um endereço de e-mail não monitorado.

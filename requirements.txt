@@ -1,0 +1,15 @@
+Django==1.6.4
+bpython==0.13.1
+django-braces==1.4.0
+django-model-utils==2.2
+logutils==0.3.3
+South==1.0
+psycopg2==2.5.4
+celery==3.1.17
+django-autoslug==1.7.2
+django-widget-tweaks==1.3
+django-contact-form==1.0
+coverage==4.0a1
+django-discover-runner==1.0
+django-debug-toolbar==1.2.1
+Sphinx==1.3b1

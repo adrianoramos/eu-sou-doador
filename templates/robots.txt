@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+Disallow: /painel/
+Sitemap: http://eusoudoador.com.br/sitemap.xml

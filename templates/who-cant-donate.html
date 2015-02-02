@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}{% trans 'Quem não pode doar sangue?' %}{% endblock %}
+
+{% block content %}
+
+<h1 class="page-header page-danger">{% trans 'Quem não pode doar sangue?' %}</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <ul class="list-unstyled">
+            <li><i class="fa fa-times fa-fw text-danger"></i> {% trans 'Quem teve hepatite após os 11 anos de idade, exceto se tiver comprovação laboratorial da época de que se tratou de hepatite A (IgM positiva);' %}</li>
+            <li><i class="fa fa-times fa-fw text-danger"></i> {% trans 'Quem teve exposição a situações de risco acrescido para doenças sexualmente transmissíveis, nos últimos 12 mese;' %}</li>
+            <li><i class="fa fa-times fa-fw text-danger"></i> {% trans 'Quem teve gripe, resfriado ou diarreia nos sete dias anteriores à doação;' %}</li>
+            <li><i class="fa fa-times fa-fw text-danger"></i> {% trans 'Quem ingeriu bebida alcoólica nas últimas 12 horas anteriores à doação;' %}</li>
+            <li><i class="fa fa-times fa-fw text-danger"></i> {% trans 'Quem já usou alguma vez drogas injetáveis;' %}</li>
+            <li><i class="fa fa-times fa-fw text-danger"></i> {% trans 'Quem apresenta ferimento ainda não cicatrizado;' %}</li>
+            <li><i class="fa fa-times fa-fw text-danger"></i> {% trans 'Quem estiver grávida ou em período de amamentação. Após o parto normal é necessário aguardar três (3) meses e após cesárea, seis (6) meses;' %}</li>
+            <li><i class="fa fa-times fa-fw text-danger"></i> {% trans 'Quem fez qualquer exame endoscópico nos últimos (6) meses;' %}</li>
+            <li><i class="fa fa-times fa-fw text-danger"></i> {% trans 'Quem fez cirurgia por laparoscopia, nos últimos seis (6) meses;' %}</li>
+            <li><i class="fa fa-times fa-fw text-danger"></i> {% trans 'Quem fez tatuagem nos últimos 12 meses;' %}</li>
+            <li><i class="fa fa-times fa-fw text-danger"></i> {% trans 'Quem fez tratamento dentário recente (a pessoa pode ser impedida de doar por um período de 1 a 30 dias, conforme o caso).' %}</li>
+            <li><i class="fa fa-times fa-fw text-danger"></i> {% trans 'Quem fez piercing nos últimos 12 meses anteriores à doação. Piercing localizado em área genital ou na boca, somente poderá ser liberada a doação após 12 meses da sua retirada.' %}</li>
+        </ul>
+        <p><small class="text-muted">Fonte: Hemominas</small></p>
+        <p>{% trans 'Veja também:' %} <a href="{% url 'who_can_donate' %}">{% trans 'Quem pode doar sangue?' %}</a></p>
+    </div>
+</div>
+{% endblock %}

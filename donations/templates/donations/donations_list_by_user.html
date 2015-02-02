@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}{% trans 'Meus pedidos por doação de sangue' %}{% endblock %}
+{% block description %}{% blocktrans %}Pacientes que precisam com urgência de doação de sangue.{% endblocktrans %}{% endblock %}
+{% block keywords %}{% blocktrans %}sangue, doar, doação, doadores, hemocentro, tipo sanguíneo, hemoterapia, O+, O-, A-, A+, B-, B+, AB-, AB+{% endblocktrans %}{% endblock %}
+{% block og_title %}{% blocktrans %}Pacientes aguardando por doação de sangue{% endblocktrans %}{% endblock %}
+{% block og_description %}{% blocktrans %}Muitos pacientes precisam com urgência de doação de sangue compatíveis com o seu. Ajude a conseguir doadores divulgando esse link nas redes sociais.{% endblocktrans %}{% endblock %}
+
+{% block content %}
+
+<h1 class="page-header">{% trans 'Meus pedidos por doação de sangue' %}</h1>
+
+{% include 'messages.html' %}
+
+<div class="row">
+    <div class="col-md-12">
+        {% for donation in donations %}
+            <div class="panel panel-default" itemscope itemtype="http://schema.org/DonateAction">
+                <div class="panel-heading" itemscope itemtype="http://schema.org/Thing">
+                    <h2 class="panel-title" itemprop="name">{% blocktrans with blood_types=donation.get_compatible_blood_types_formatted location=donation.location %}Precisa-se de doadores de sangue {{ blood_types }} em {{ location }}{% endblocktrans %}</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-5" itemprop="recipient" itemscope itemtype="http://schema.org/Person">
+                            <p>{% trans 'Nome:' %} <strong itemprop="name">{{ donation.receiver_name }}</strong></p>
+                            <p>{% trans 'Idade:' %}  <strong>{{ donation.receiver_age }} {% trans 'Ano(s)' %}</strong></p>
+                            <p>{% trans 'Doadores compatíveis:' %} <strong class="text-danger">{{ donation.get_compatible_blood_types_formatted }}</strong></p>
+                        </div>
+                        <div class="col-md-5" itemprop="location" itemscope itemtype="http://schema.org/PostalAddress">
+                            <p>{% trans 'Data limite para doação:' %} <strong class="text-danger" itemprop="endTime">{{ donation.expiration_date }}</strong></p>
+                            <p>{% trans 'Hospital/Unidade:' %} <strong itemprop="streetAddress">{{ donation.donation_center }}</strong></p>
+                            <p>{% trans 'Cidade/Estado:' %} <strong itemprop="addressLocality">{{ donation.location }}</strong></p>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <a class="btn btn-facebook" id="facebook-share-button" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Feusoudoador.com.br%2Fprecisa-se-de-doadores-de-sangue%2F{{ donation.id }}%2F"><i class="fa fa-fw fa-facebook"></i></a>
+                            <a class="btn btn-twitter" id="twitter-share-button" target="_blank" href="{% blocktrans with location=donation.location|force_escape id=donation.id %}https://twitter.com/intent/tweet?button_hashtag=DoeSangue&amp;text=Precisa-se%20de%20doadores%20de%20sangue%20em%20{{ location }}&amp;url=http%3A%2F%2Feusoudoador.com.br%2Fprecisa-se-de-doadores-de-sangue%2F{{ id }}%2F&amp;related=eusoudoadorbr{% endblocktrans %}"><i class="fa fa-fw fa-twitter"></i></a>
+                        </div>
+                        <div class="col-md-12">
+                            <!-- <a class="btn btn-success" href="#"><i class="fa fa-fw fa-check"></i>{% trans 'Já consegui doadores o suficiente' %}</a> -->
+                            <a class="btn btn-default" href="{% url 'donation_request_update' donation.id %}"><i class="fa fa-fw fa-edit"></i>{% trans 'Alterar informações' %}</a>
+                            <!-- <a class="btn btn-danger" href="#"><i class="fa fa-fw fa-remove"></i>{% trans 'Remover' %}</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-center">{% trans 'Você ainda não cadastrou nenhum pedido por doação de sangue.' %}</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

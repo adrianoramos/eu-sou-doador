@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}{% blocktrans with name=bloodcenter.name city=bloodcenter.address_set.first.city state=bloodcenter.address_set.first.state %}{{ name }} em {{city}} - {{state}}{% endblocktrans %}{% endblock %}
+{% block description %}{% blocktrans with name=bloodcenter.name city=bloodcenter.address_set.first.city state=bloodcenter.address_set.first.state %}Veja o endereço e o telefone do {{ name }} em {{city}} - {{state}}{% endblocktrans %}{% endblock %}
+{% block og_title %}{% blocktrans with name=bloodcenter.name city=bloodcenter.address_set.first.city state=bloodcenter.address_set.first.state %}{{ name }} em {{city}} - {{state}}{% endblocktrans %}{% endblock %}
+{% block og_description %}{% blocktrans with name=bloodcenter.name city=bloodcenter.address_set.first.city state=bloodcenter.address_set.first.state %}Veja o endereço e o telefone do {{ name }} em {{city}} - {{state}}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12" itemscope itemtype="http://schema.org/MedicalOrganization">
+
+        <h1 class="page-header" itemprop="name">{{ bloodcenter.name }}</h1>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title"><i class="fa fa-fw fa-hospital-o"></i> {% trans 'Informações' %}</h2>
+            </div>
+            <div class="panel-body">
+
+                {% with bloodcenter.address_set.all|first as address %}
+                <div itemprop="location" itemscope itemtype="http://schema.org/PostalAddress">
+                    <p>{% blocktrans with street=address.street number=address.number neighborhood=address.neighborhood %}<b>Endereço:</b> <span itemprop="streetAddress">{{ street }} {{ number }} - {{ neighborhood }}</span>{% endblocktrans %}</p>
+                    <p>{% blocktrans with city=address.city state=address.state %}<b>Cidade:</b> <span itemprop="addressLocality">{{ city }}</span> - <span itemprop="addressRegion">{{ state }}</span>{% endblocktrans %}</p>
+                    <p>{% blocktrans with zip=address.zip_code %}<b>CEP:</b> <span itemprop="postalCode">{{zip}}</span>{% endblocktrans %}</p>
+                </div>
+                {% endwith %}
+
+                {% if bloodcenter.email %}
+                    <p>{% blocktrans with email=bloodcenter.email %}<b>E-mail:</b> <a href="mailto:{{ email }}" itemprop="email">{{ email }}</a>{% endblocktrans %}</p>
+                {% endif %}
+
+                {% if bloodcenter.website %}
+                    <p>{% blocktrans with site=bloodcenter.website %}<b>Site:</b> <a href="{{ site }}" itemprop="url">{{ site }}</a>{% endblocktrans %}</p>
+                {% endif %}
+
+                {% if bloodcenter.phone_set.all %}
+                <ul class="list-inline">
+                    <li><b>Telefone(s): </b></li>
+                    {% for phone in bloodcenter.phone_set.all %}
+                    <li><i class="fa fa-phone text-muted"></i> <a href="tel:{{ phone.number }}"><span itemprop="telephone">{{ phone.number }}</span></a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                {% if bloodcenter.bloodstock_set.all %}
+                    <hr>
+                    {% with bloodcenter.bloodstock_set.all|first as bloodstock %}
+                    <p>{% blocktrans with last_update=bloodstock.created %}<b>Estoque:</b> (Última atualização: {{ last_update }}){% endblocktrans %}</p>
+                    <ul class="list-inline">
+                        <li><i class="fa fa-tint text-muted"></i>{% blocktrans with o_negative=bloodstock.get_o_negative_stock_level_display %} O- ({{ o_negative }}){% endblocktrans %}</a></li>
+                        <li><i class="fa fa-tint text-muted"></i>{% blocktrans with o_positive=bloodstock.get_o_positive_stock_level_display %} O+ ({{ o_positive }}){% endblocktrans %}</a></li>
+                        <li><i class="fa fa-tint text-muted"></i>{% blocktrans with a_negative=bloodstock.get_a_negative_stock_level_display %} A- ({{ a_negative }}){% endblocktrans %}</a></li>
+                        <li><i class="fa fa-tint text-muted"></i>{% blocktrans with a_positive=bloodstock.get_a_positive_stock_level_display %} A+ ({{ a_positive }}){% endblocktrans %}</a></li>
+                        <li><i class="fa fa-tint text-muted"></i>{% blocktrans with b_negative=bloodstock.get_b_negative_stock_level_display %} B- ({{ b_negative }}){% endblocktrans %}</a></li>
+                        <li><i class="fa fa-tint text-muted"></i>{% blocktrans with b_positive=bloodstock.get_b_positive_stock_level_display %} B+ ({{ b_positive }}){% endblocktrans %}</a></li>
+                        <li><i class="fa fa-tint text-muted"></i>{% blocktrans with ab_negative=bloodstock.get_ab_negative_stock_level_display %} AB- ({{ ab_negative }}){% endblocktrans %}</a></li>
+                        <li><i class="fa fa-tint text-muted"></i>{% blocktrans with ab_positive=bloodstock.get_ab_positive_stock_level_display %} AB+ ({{ ab_positive }}){% endblocktrans %}</a></li>
+                    </ul>
+                    {% endwith %}
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

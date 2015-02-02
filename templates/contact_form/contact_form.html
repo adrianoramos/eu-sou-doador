@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}{% trans 'Fale conosco' %}{% endblock %}
+
+{% block content %}
+
+<h1 class="page-header page-success">{% trans 'Fale conosco' %}</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form role="form" method="post" action="{% url 'contact_form' %}">
+            <fieldset>
+                <legend class="sr-only">{% trans 'Formulário de contato' %}</legend>
+
+                {% csrf_token %}
+
+                <div class="input-group input-group{% if form.name.errors %} has-error{% endif %}">
+                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                    <label for="{{ form.name.auto_id }}" class="sr-only">{{ form.name.label }}</label>
+                    {{ form.name|add_class:"form-control"|attr:"placeholder:Nome"|attr:"required:required" }}
+                </div>
+                <span class="help-block">
+                {{ form.name.help_text|escape }}
+                {% if form.name.errors %}
+                    {% for error in form.name.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                {% endif %}
+                </span>
+
+                <div class="input-group input-group{% if form.email.errors %} has-error{% endif %}">
+                    <span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></span>
+                    <label for="{{ form.email.auto_id }}" class="sr-only">{{ form.email.label }}</label>
+                    {{ form.email|attr:"type:email"|add_class:"form-control"|attr:"placeholder:E-mail"|attr:"required:required" }}
+                </div>
+                <span class="help-block">
+                {{ form.email.help_text|escape }}
+                {% if form.email.errors %}
+                    {% for error in form.email.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                {% endif %}
+                </span>
+
+                <div class="input-group input-group{% if form.body.errors %} has-error{% endif %}">
+                    <span class="input-group-addon"><i class="fa fa-quote-right fa-fw"></i></span>
+                    <label for="{{ form.body.auto_id }}" class="sr-only">{{ form.body.label }}</label>
+                    {{ form.body|add_class:"form-control"|attr:"rows:6"|attr:"placeholder:Mensagem"|attr:"required:required" }}
+                </div>
+                <span class="help-block">
+                {{ form.body.help_text|escape }}
+                {% if form.body.errors %}
+                    {% for error in form.body.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                {% endif %}
+                </span>
+            </fieldset>
+            <input class="btn btn-primary" type="submit" value="Enviar">
+        </form>
+    </div>
+    <div class="col-md-6">
+        <p><a class="btn btn-facebook" href="https://www.facebook.com/eusoudoadorbrasil/"><i class="fa fa-lg fa-fw fa-facebook"></i>facebook.com/eusoudoadorbrasil</a></p>
+        <p><a class="btn btn-twitter" href="https://twitter.com/eusoudoadorbr/"><i class="fa fa-lg fa-fw fa-twitter"></i>twitter.com/eusoudoadorbr</a></p>
+        <p><a class="btn btn-default" href="mailto:eusoudoador@eusoudoador.com.br"><i class="fa fa-lg fa-fw fa-envelope"></i>eusoudoador@eusoudoador.com.br</a></p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}{% trans 'Seja um doador de sangue' %}{% endblock %}
+
+{% block banner %}
+
+<div class="jumbotron" id="main-banner">
+    <div class="container">
+        <h1>{% trans '#DoeSangue' %} {{ total_donors }}</h1>
+        <p>{% blocktrans %}Sua atitude em doar sangue é a esperança de muitos pacientes que precisam de sangue para continuar vivendo.<br> Aqui você pode se disponibilizar como doador ou fazer um pedido de doação para um parente ou amigo.{% endblocktrans %}</p>
+        <p class="text-center">
+            <a class="btn btn-lg btn-success" href="{% url 'signup' %}" role="button" title="{% trans 'Quero me disponibilizar como doador de sangue.' %}"><i class="fa fa-fw fa-heart"></i> {% trans 'Quero doar sangue' %}</a>
+            <a class="btn btn-lg btn-danger" href="{% url 'donation_request' %}" role="button" title="{% trans 'Um parente ou amigo está precisando de doação de sangue.' %}"><i class="fa fa-fw fa-tint"></i> {% trans 'Preciso de doação de sangue' %}</a>
+            <a class="btn btn-lg btn-warning" href="{% url 'donations_list' %}" role="button" title="{% trans 'Pessoas que aguardam por doação de sangue.' %}"><i class="fa fa-fw fa-clock-o"></i> {% trans 'Pacientes aguardando' %}</a>
+        </p>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block content %}
+<section id="{% trans 'como-funciona' %}">
+    <h2 class="page-header text-muted text-center">{% trans 'Como funciona?' %}</h2>
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>{% trans 'Cadastre um pedido de doação' %}</h3>
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-square-o fa-stack-2x text-muted"></i>
+                        <i class="fa fa-male fa-stack-1x text-muted"></i>
+                    </span>
+                    <p class="text-justify">{% blocktrans %}Você pode cadastrar um pedido de doação para um familiar ou amigo em tratamento. Você também pode se cadastrar disponibilizando-se como um possivel doador.{% endblocktrans %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>{% trans 'Encontramos doadores compatíveis' %}</h3>
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-square-o fa-stack-2x text-muted"></i>
+                        <i class="fa fa-group fa-stack-1x text-muted"></i>
+                    </span>
+                    <p class="text-justify">{% blocktrans %}Nós encontramos pessoas próximas cadastradas que sejam compativéis com os pedidos de doação feitos, informando as de que existe uma nova necessidade de doação.{% endblocktrans %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>{% trans 'O paciente consegue doadores' %}</h3>
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-square-o fa-stack-2x text-muted"></i>
+                        <i class="fa fa-child fa-stack-1x text-muted"></i>
+                    </span>
+                    <p class="text-justify">{% blocktrans %}Dessa forma contribuímos para que mais pessoas saibam da necessidade atual de doação, aumentando assim as chances de que o paciente consiga dar prosseguimento ao seu tratamento.{% endblocktrans %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<br>
+
+<section id="{% trans 'por-que-doar-sangue' %}">
+    <h2 class="page-header text-muted text-center">{% trans 'Por que doar sangue?' %}</h2>
+
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>{% trans 'Pessoas aguardam por doação' %}</h3>
+                    <p class="text-justify">{% blocktrans %}Todos os dias milhares de pessoas necessitam de transfusões de sangue que podem representar a diferença entre a vida e a morte, por isso sua doação é muito importante para manter os estoques sanguíneos de Hemocentros e Hospitais.{% endblocktrans %}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 text-center">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>{% trans 'A doação é um processo simples' %}</h3>
+                    <p class="text-justify">{% blocktrans %}Doar sangue é um ato simples, tranquilo e seguro que não provoca risco ou prejuízo à saúde. Se cada pessoa saudável doasse sangue espontaneamente pelo menos duas vezes ao ano, os Hemocentros teriam recursos suficientes.{% endblocktrans %}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 text-center">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>{% trans 'Solidariedade: Fazer bem a todos' %}</h3>
+                    <p class="text-justify">{% blocktrans %}Doar sangue não necessita de nenhum motivo especial, pois não importa a razão, após a doação você se sentirá bem sabendo que a sua atitude pode ter contribuído para salvar a vida de varias pessoas.{% endblocktrans %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

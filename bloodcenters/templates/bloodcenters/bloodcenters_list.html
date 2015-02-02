@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}{% trans 'Hemocentros' %}{% endblock %}
+{% block description %}{% blocktrans %}Consulte a lista completa de hemocentros e unidades de coleta da sua cidade/estado.{% endblocktrans %}{% endblock %}
+{% block keywords %}{% blocktrans %}hemocentros, hemonúcleos, ponto de coleta, sangue, doadores, hemocentro, tipo sanguíneo, hemoterapia, O+, O-, A-, A+, B-, B+, AB-, AB+{% endblocktrans %}{% endblock %}
+{% block og_title %}{% blocktrans %}Hemocentros{% endblocktrans %}{% endblock %}
+{% block og_description %}{% blocktrans %}Consulte a lista completa de hemocentros e unidades de coleta da sua cidade/estado.{% endblocktrans %}{% endblock %}
+
+{% block content %}
+
+<h1 class="page-header">{% trans 'Hemocentros' %}</h1>
+
+{% include 'messages.html' %}
+
+<div class="row">
+    <div class="col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="{% url 'bloodcenters_list' %}">{% trans 'Todos os estados' %}</a></li>
+        {% for state in states %}
+            <li><a href="{% url 'bloodcenters_by_state' state.state %}">{{ state.state }}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div class="col-md-9">
+        {% for bloodcenter in bloodcenters %}
+            <div class="panel panel-default" itemscope itemtype="http://schema.org/MedicalOrganization">
+                <div class="panel-heading">
+                    <h2 class="panel-title"><i class="fa fa-fw fa-hospital-o"></i> <a href="{% url 'bloodcenter_detail' bloodcenter.slug %}" itemprop="url"><span itemprop="name">{{ bloodcenter.name }}</span></a></h2>
+                </div>
+                <div class="panel-body">
+                    {% with bloodcenter.address_set.all|first as address %}
+                    <div itemprop="location" itemscope itemtype="http://schema.org/PostalAddress">
+                        <p>{% blocktrans with street=address.street number=address.number neighborhood=address.neighborhood %}<b>Endereço:</b> <span itemprop="streetAddress">{{ street }} {{ number }} - {{ neighborhood }}</span>{% endblocktrans %}</p>
+                        <p>{% blocktrans with city=address.city state=address.state %}<b>Cidade:</b> <span itemprop="addressLocality">{{ city }}</span> - <span itemprop="addressRegion">{{ state }}</span>{% endblocktrans %}</p>
+                        <p>{% blocktrans with zip=address.zip_code %}<b>CEP:</b> <span itemprop="postalCode">{{zip}}</span>{% endblocktrans %}</p>
+                    </div>
+                    {% endwith %}
+                    {% if bloodcenter.phone_set.all %}
+                        <ul class="list-inline">
+                        <li><b>Telefone(s): </b></li>
+                        {% for phone in bloodcenter.phone_set.all %}
+                            <li><i class="fa fa-phone text-muted"></i> <a href="tel:{{ phone.number }}"><span itemprop="telephone">{{ phone.number }}</span></a></li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center">Nenhum hemocentro foi cadastrado ainda.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

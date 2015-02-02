@@ -1,0 +1,138 @@
+{% load staticfiles %}{% load i18n %}<!DOCTYPE html>
+<html dir="ltr" lang="pt-br" prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="description" content="{% block description %}{% trans 'Serviço para ajudar pessoas que precisam de doação de sangue a encontrar doadores compatíveis mais próximos.' %}{% endblock %}">
+        <meta name="keywords" content="{% block keywords %}{% trans 'sangue, doar, doação, doadores, hemocentro, tipo sanguíneo, hemoterapia, O+, O-, A-, A+, B-, B+, AB-, AB+' %}{% endblock %}">
+
+        <title>{% block title %}Seja um doador de sangue{% endblock title %} - {% trans 'Eu Sou Doador' %}</title>
+
+        <meta name="mobile-web-app-capable" content="yes">
+        <link rel="icon" sizes="192x192" type="image/png" href="{% static 'ico/favicon-192x192.png' %}">
+        <link rel="icon" sizes="160x160" type="image/png" href="{% static 'ico/favicon-160x160.png' %}">
+        <link rel="icon" sizes="96x96" type="image/png" href="{% static 'ico/favicon-96x96.png' %}">
+        <link rel="icon" sizes="32x32" type="image/png" href="{% static 'ico/favicon-32x32.png' %}">
+        <link rel="icon" sizes="16x16" type="image/png" href="{% static 'ico/favicon-16x16.png' %}">
+
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="white">
+        <meta name="apple-mobile-web-app-title" content="{% trans 'Eu Sou Doador' %}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'ico/apple-touch-icon-180x180.png' %}">
+        <link rel="apple-touch-icon" sizes="152x152" href="{% static 'ico/apple-touch-icon-152x152.png' %}">
+        <link rel="apple-touch-icon" sizes="144x144" href="{% static 'ico/apple-touch-icon-144x144.png' %}">
+        <link rel="apple-touch-icon" sizes="120x120" href="{% static 'ico/apple-touch-icon-120x120.png' %}">
+        <link rel="apple-touch-icon" sizes="114x114" href="{% static 'ico/apple-touch-icon-114x114.png' %}">
+        <link rel="apple-touch-icon" sizes="76x76" href="{% static 'ico/apple-touch-icon-76x76.png' %}">
+        <link rel="apple-touch-icon" sizes="72x72" href="{% static 'ico/apple-touch-icon-72x72.png' %}">
+        <link rel="apple-touch-icon" sizes="60x60" href="{% static 'ico/apple-touch-icon-60x60.png' %}">
+        <link rel="apple-touch-icon" sizes="57x57" href="{% static 'ico/apple-touch-icon-57x57.png' %}">
+        <link rel="apple-touch-icon" href="{% static 'ico/apple-touch-icon.png' %}">
+
+        <meta name="msapplication-TileImage" content="{% static 'ico/ms-touch-icon-144x144.png' %}">
+        <meta name="msapplication-TileColor" content="#eb6864">
+
+        <meta name="application-name" content="{% trans 'Eu Sou Doador' %}">
+
+        <meta property="fb:app_id" content="700232966740893" />
+        <meta property="og:title" content="{% block og_title %}{% trans 'Doe sangue. Salve vidas.' %}{% endblock %}" />
+        <meta property="og:description" content="{% block og_description %}{% trans 'Ferramenta para captar doadores e ajudar a quem precisa de doação de sangue a encontrar os doadores compatíveis mais próximos.' %}{% endblock %}" />
+        <meta property="og:image" content="http://eusoudoador.com.br{% static 'img/open-graph-1200x630.png' %}" />
+        <meta property="og:url" content="http://eusoudoador.com.br{{ request.get_full_path }}" />
+        <meta property="og:site_name" content="{% trans 'Eu Sou Doador' %}" />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="pt_BR" />
+
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/flatly/bootstrap.min.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="{% static 'css/app.min.css' %}" rel="stylesheet">
+        {% block extra_css %}{% endblock extra_css %}
+        <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.min.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+<body>
+    <header class="navbar navbar-default navbar-static-top" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">{% trans 'Alternar navegação' %}</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand text-uppercase" href="{% url 'home' %}"><i class="fa fa-heart"></i> {% trans 'Eu Sou Doador' %}</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ user.get_short_name }} <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'donations_list_by_user' %}">{% trans 'Meus pedidos' %}</a></li>
+                            <li><a href="{% url 'profile_update' %}">{% trans 'Minhas informações' %}</a></li>
+                            <li><a href="{% url 'password_change' %}">{% trans 'Alterar senha' %}</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'logout' %}">{% trans 'Sair' %}</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">{% trans 'Entrar' %}</a></li>
+                {% endif %}
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        {% block banner %}{% endblock banner %}
+        <div class="container">
+            {% block content %}{% endblock content %}
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <hr class="clearfix">
+            <div id="fb-root"></div>
+            <ul class="list-inline pull-left">
+                <li><div class="fb-like" data-href="https://www.facebook.com/eusoudoadorbrasil" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></li>
+                <li><a href="https://twitter.com/eusoudoadorbr" class="twitter-follow-button" data-show-count="false" data-show-screen-name="true">Follow @eusoudoadorbr</a></li>
+            </ul>
+            <ul class="list-inline pull-right">
+                <li><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
+                <li><a href="{% url 'faq' %}">{% trans 'Dúvidas sobre doação' %}</a></li>
+                <li><a href="{% url 'bloodcenters_list' %}">{% trans 'Hemocentros' %}</a></li>
+                <li><a href="{% url 'terms_and_privacy' %}">{% trans 'Privacidade' %}</a></li>
+                <li><a href="{% url 'contact_form' %}">{% trans 'Fale Conosco' %}</a></li>
+            </ul>
+        </div>
+    </footer>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    {% block extra_js %}{% endblock extra_js %}
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-56920002-1', 'auto');
+    {% if user.is_authenticated %}
+    ga('set', '&uid', {{ user.id }});
+    {% endif %}
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+    </script>
+    <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </body>
+</html>

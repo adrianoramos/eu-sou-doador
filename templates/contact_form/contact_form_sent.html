@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}{% trans 'Fale conosco' %}{% endblock %}
+
+{% block content %}
+
+<h1 class="page-header page-success">{% trans 'Fale conosco' %}</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="alert alert-success" role="alert">
+            <span>{% trans 'Sua mensagem foi enviada com sucesso! Obrigado por entrar em contato conosco.' %}</span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <p><a class="btn btn-facebook" href="https://www.facebook.com/eusoudoadorbrasil/"><i class="fa fa-lg fa-fw fa-facebook"></i>facebook.com/eusoudoadorbrasil</a></p>
+        <p><a class="btn btn-twitter" href="https://twitter.com/eusoudoadorbr/"><i class="fa fa-lg fa-fw fa-twitter"></i>twitter.com/eusoudoadorbr</a></p>
+        <p><a class="btn btn-default" href="mailto:eusoudoador@eusoudoador.com.br"><i class="fa fa-lg fa-fw fa-envelope"></i>eusoudoador@eusoudoador.com.br</a></p>
+    </div>
+</div>
+{% endblock %}

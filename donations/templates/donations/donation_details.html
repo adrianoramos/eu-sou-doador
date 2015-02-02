@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}{% blocktrans with blood=donation.get_compatible_blood_types_formatted location=donation.location %}Precisa-se de doadores de sangue {{ blood }} em {{ location }}{% endblocktrans %}{% endblock %}
+{% block description %}{% blocktrans with blood=donation.get_compatible_blood_types_formatted center=donation.donation_center location=donation.location %}Um paciente está precisando de doadores de sangue do tipo {{ blood }} no {{ center }} em {{ location }}. Ajude a conseguir doadores divulgando esse link nas redes sociais.{% endblocktrans %}{% endblock %}
+{% block keywords %}{% blocktrans with blood=donation.get_compatible_blood_types_formatted location=donation.location %}sangue, doar, doação, doadores, hemocentro, tipo sanguíneo, hemoterapia, {{ blood }}, cidade, {{ location }}{% endblocktrans %}{% endblock %}
+{% block og_title %}{% blocktrans with blood=donation.get_compatible_blood_types_formatted location=donation.location %}Precisa-se com urgência de doadores de sangue {{ blood }} em {{ location }}{% endblocktrans %}{% endblock %}
+{% block og_description %}{% blocktrans with blood=donation.get_compatible_blood_types_formatted center=donation.donation_center location=donation.location %}Um paciente está precisando de doadores de sangue do tipo {{ blood }} no {{ center }} em {{ location }}. Ajude a conseguir doadores divulgando esse link nas redes sociais.{% endblocktrans %}{% endblock %}
+
+{% block content %}
+
+<h1 class="page-header page-danger">{% blocktrans with blood=donation.get_compatible_blood_types_formatted location=donation.location %}Precisa-se de doadores de sangue {{ blood }} em {{ location }}{% endblocktrans %}</h1>
+
+{% include 'messages.html' %}
+
+<div class="row" itemscope itemtype="http://schema.org/DonateAction">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title"><i class="fa fa-hospital-o fa-fw"></i> {% trans 'Informações para a doação' %}</h2>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6" itemprop="recipient" itemscope itemtype="http://schema.org/Person">
+                        <p>{% trans 'Nome:' %} <strong itemprop="name">{{ donation.receiver_name }}</strong></p>
+                        <p>{% trans 'Idade:' %}  <strong>{{ donation.receiver_age }} {% trans 'Ano(s)' %}</strong></p>
+                        <p>{% trans 'Doadores compatíveis:' %} <strong class="text-danger">{{ donation.get_compatible_blood_types_formatted }}</strong></p>
+                    </div>
+                    <div class="col-md-6" itemprop="location" itemscope itemtype="http://schema.org/PostalAddress">
+                        <p>{% trans 'Data limite para doação:' %} <strong class="text-danger" itemprop="endTime">{{ donation.expiration_date }}</strong></p>
+                        <p>{% trans 'Hospital/Unidade:' %} <strong itemprop="streetAddress">{{ donation.donation_center }}</strong></p>
+                        <p>{% trans 'Cidade/Estado:' %} <strong itemprop="addressLocality">{{ donation.location }}</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title"><i class="fa fa-quote-right fa-fw"></i> {% trans 'Motivo' %}</h2>
+            </div>
+            <div class="panel-body">
+                <p itemprop="description">{{ donation.reason }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <h3 class="sr-only">{% trans 'Compartilhe e ajude' %}</h3>
+        <a class="btn btn-facebook" id="facebook-share-button" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Feusoudoador.com.br%2Fprecisa-se-de-doadores-de-sangue%2F{{ donation.id }}%2F"><i class="fa fa-fw fa-facebook"></i> {% trans 'Compartilhe no Facebook' %}</a>
+        <a class="btn btn-twitter" id="twitter-share-button" target="_blank" href="{% blocktrans with location=donation.location|force_escape id=donation.id %}https://twitter.com/intent/tweet?button_hashtag=DoeSangue&amp;text=Precisa-se%20de%20doadores%20de%20sangue%20em%20{{ location }}&amp;url=http%3A%2F%2Feusoudoador.com.br%2Fprecisa-se-de-doadores-de-sangue%2F{{ id }}%2F&amp;related=eusoudoadorbr{% endblocktrans %}"><i class="fa fa-fw fa-twitter"></i> {% trans 'Compartilhe no Twitter' %}</a>
+    </div>
+
+    <div class="col-md-12">
+        <br>
+        <a href="{% url 'donations_list' %}">{% trans 'Ver outros pacientes que aguardam por doação' %}</a>
+    </div>
+</div>
+
+{% endblock %}

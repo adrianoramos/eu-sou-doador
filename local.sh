@@ -1,0 +1,1 @@
+killall python; python manage.py runserver [::]:8000

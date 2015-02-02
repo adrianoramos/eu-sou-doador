@@ -1,0 +1,241 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}{% trans 'Preciso de doação de sangue' %}{% endblock %}
+{% block description %}{% trans 'Cadastre as informações do paciente que precisa de doação de sangue e vamos ajudar a encontrar as pessoas mais próximas e com tipo sanguíneo compatível.' %}{% endblock %}
+{% block keywords %}{% trans 'sangue, doar, doação, doadores, hemocentro, tipo sanguíneo, hemoterapia, O+, O-, A-, A+, B-, B+, AB-, AB+' %}{% endblock %}
+{% block og_title %}{% trans 'Preciso de doação de sangue' %}{% endblock %}
+{% block og_description %}{% trans 'Cadastre as informações do paciente que precisa de doação de sangue e vamos ajudar a encontrar as pessoas mais próximas e com tipo sanguíneo compatível.' %}{% endblock %}
+
+{% block content %}
+
+<h1 class="page-header page-danger">{% trans 'Preciso de doação de sangue' %} <small class="hidden-xs">{% trans 'Para um parente ou amigo.' %}</small></h1>
+
+{% include 'messages.html' %}
+
+{% if donation_form.non_field_errors %}
+    {% for error in donation_form.non_field_errors %}
+<div class="alert alert-warning"><span>{{ error|escape }}</span></div>
+    {% endfor %}
+{% endif %}
+
+{% if user_form.non_field_errors %}
+    {% for error in user_form.non_field_errors %}
+<div class="alert alert-warning"><span>{{ error|escape }}</span></div>
+    {% endfor %}
+{% endif %}
+
+<form method="post" action="{% url 'donation_request' %}">
+
+    {% csrf_token %}
+
+    <fieldset>
+        <legend class="small text-muted">{% trans 'Dados do paciente' %}</legend>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group{% if donation_form.receiver_name.errors %} has-error{% endif %}">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-user fa-fw"></i></div>
+                        <label for="{{ donation_form.receiver_name.auto_id }}" class="sr-only">{{ donation_form.receiver_name.label }}</label>
+                        {% render_field donation_form.receiver_name class="form-control" placeholder=donation_form.receiver_name.label required="required" %}
+                    </div>
+                    <span class="help-block">
+                        {{ donation_form.receiver_name.help_text|escape }}
+                        {% if donation_form.receiver_name.errors %}
+                            {% for error in donation_form.receiver_name.errors %}{{ error|escape }}{% endfor %}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group{% if donation_form.receiver_age.errors %} has-error{% endif %}">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-birthday-cake fa-fw"></i></div>
+                        <label for="{{ donation_form.receiver_age.auto_id }}" class="sr-only">{{ donation_form.receiver_age.label }}</label>
+                        {% render_field donation_form.receiver_age class="form-control" min="0" max="120" placeholder=donation_form.receiver_age.label required="required" %}
+                    </div>
+                    {% if donation_form.receiver_age.help_text %}
+                    <span class="help-block">
+                        {{ donation_form.receiver_age.help_text|escape }}
+                        {% if donation_form.receiver_age.errors %}
+                            {% for error in donation_form.receiver_age.errors %}{{ error|escape }}{% endfor %}
+                        {% endif %}
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group{% if donation_form.receiver_blood_type.errors %} has-error{% endif %}">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-tint fa-fw"></i></div>
+                        <label for="{{ donation_form.receiver_blood_type.auto_id }}" class="sr-only">{{ donation_form.receiver_blood_type.label }}</label>
+                        {% render_field donation_form.receiver_blood_type class="form-control" required="required" %}
+                    </div>
+                    <span class="help-block">
+                        {{ donation_form.receiver_blood_type.help_text|escape }}
+                        {% if donation_form.receiver_blood_type.errors %}
+                            {% for error in donation_form.receiver_blood_type.errors %}{{ error|escape }}{% endfor %}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend class="small text-muted">{% trans 'Informações para a doação' %}</legend>
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="form-group{% if donation_form.expiration_date.errors %} has-error{% endif %}">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></div>
+                        <label for="{{ donation_form.expiration_date.auto_id }}" class="sr-only">{{ donation_form.expiration_date.label }}</label>
+                        {% render_field donation_form.expiration_date class="form-control" placeholder=donation_form.expiration_date.label required="required" %}
+                    </div>
+                    <span class="help-block">
+                        {{ donation_form.expiration_date.help_text|escape }}
+                        {% if donation_form.expiration_date.errors %}
+                            {% for error in donation_form.expiration_date.errors %}{{ error|escape }}{% endfor %}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group{% if donation_form.donation_center.errors %} has-error{% endif %}">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-hospital-o fa-fw"></i></div>
+                        <label for="{{ donation_form.donation_center.auto_id }}" class="sr-only">{{ donation_form.donation_center.label }}</label>
+                        {% render_field donation_form.donation_center class="form-control" placeholder=donation_form.donation_center.label required="required" %}
+                    </div>
+                    <span class="help-block">
+                        {{ donation_form.donation_center.help_text|escape }}
+                        {% if donation_form.donation_center.errors %}
+                            {% for error in donation_form.donation_center.errors %}{{ error|escape }}{% endfor %}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group{% if donation_form.location.errors or donation_form.position.errors %} has-error{% endif %}">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></div>
+                        <label for="{{ donation_form.location.auto_id }}" class="sr-only">{{ donation_form.location.label }}</label>
+                        {% render_field donation_form.location class="form-control" placeholder=donation_form.location.help_text required="required" %}
+                    </div>
+                    {% render_field donation_form.position type="hidden" %}
+                    <span class="help-block">
+                        {{ donation_form.position.help_text|escape }}
+                        {% if donation_form.location.errors %}
+                            {% for error in donation_form.location.errors %}{{ error|escape }}{% endfor %}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend class="small text-muted">{% trans 'Motivo' %}</legend>
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="form-group{% if donation_form.reason.errors %} has-error{% endif %}">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-quote-right fa-fw"></i></div>
+                        <label for="{{ donation_form.reason.auto_id }}" class="sr-only">{{ donation_form.reason.label }}</label>
+                        {% render_field donation_form.reason class="form-control" rows="3" placeholder=donation_form.reason.help_text|escape required="required" %}
+                    </div>
+                    <span class="help-block">
+                        {% if donation_form.reason.errors %}
+                            {% for error in donation_form.reason.errors %}{{ error|escape }}{% endfor %}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </fieldset>
+    {% if not user.is_authenticated %}
+    <fieldset>
+        <legend class="small text-muted">{% trans 'Dados para acesso' %}</legend>
+
+
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="form-group{% if user_form.name.errors %} has-error{% endif %}">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-user fa-fw"></i></div>
+                        <label for="{{ user_form.name.auto_id }}" class="sr-only">{{ user_form.name.label }}</label>
+                        {% render_field user_form.name class="form-control" placeholder=user_form.name.label required="required" %}
+                    </div>
+                    <span class="help-block">
+                        {{ user_form.name.help_text|escape }}
+                        {% if user_form.name.errors %}
+                            {% for error in user_form.name.errors %}{{ error|escape }}{% endfor %}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group{% if user_form.email.errors %} has-error{% endif %}">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></div>
+                        <label for="{{ user_form.email.auto_id }}" class="sr-only">{{ user_form.email.label }}</label>
+                        {% render_field user_form.email class="form-control" placeholder=user_form.email.label required="required" %}
+                    </div>
+                    <span class="help-block">
+                        {{ user_form.email.help_text|escape }}
+                        {% if user_form.email.errors %}
+                            {% for error in user_form.email.errors %}{{ error|escape }}{% endfor %}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group{% if user_form.password.errors %} has-error{% endif %}">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-asterisk fa-fw"></i></div>
+                        <label for="{{ user_form.password.auto_id }}" class="sr-only">{{ user_form.password.label }}</label>
+                        {% render_field user_form.password class="form-control" placeholder=user_form.password.label required="required" %}
+                    </div>
+                    <span class="help-block">
+                        {{ user_form.password.help_text|escape }}
+                        {% if user_form.password.errors %}
+                            {% for error in user_form.password.errors %}{{ error|escape }}{% endfor %}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </fieldset>
+    {% endif %}
+
+    {% url 'terms_and_privacy' as terms_and_privacy %}
+    <p class="text-muted text-justify">{% blocktrans %}Ao clicar em "Registrar pedido" informo que os dados repassados são verdadeiros e concordo com os <a href="{{ terms_and_privacy }}" target="_blank">termos de uso</a> do serviço.{% endblocktrans %}</p>
+
+    <button class="btn btn-lg btn-block visible-xs btn-success" id="submit" type="submit">{% trans 'Registrar pedido' %}</button>
+    <button class="btn hidden-xs btn-success" id="submit" type="submit">{% trans 'Registrar pedido' %}</button>
+</form>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places&amp;language=pt-BR"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/geocomplete/1.4/jquery.geocomplete.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.mask/0.9.0/jquery.mask.min.js"></script>
+    <script src="{% static 'js/donations.min.js' %}"></script>
+{% endblock %}

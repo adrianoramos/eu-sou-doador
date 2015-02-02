@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}{% trans 'Dúvidas sobre doação de sangue' %}{% endblock %}
+{% block description %}{% trans 'Tire todas as suas dúvidas sobre a doação de sangue. Não deixe a falta de informação impedir você de fazer uma boa ação.' %}{% endblock %}
+{% block keywords %}{% trans 'sangue, doar, doação, doadores, hemocentro, tipo sanguíneo, hemoterapia, O+, O-, A-, A+, B-, B+, AB-, AB+' %}{% endblock %}
+{% block og_title %}{% trans 'Seja um doador de sangue' %}{% endblock %}
+{% block og_description %}{% trans 'Tire todas as suas dúvidas sobre a doação de sangue. Não deixe a falta de informação impedir você de fazer uma boa ação.' %}{% endblock %}
+
+{% block content %}
+
+<h1 class="page-header">{% trans 'Dúvidas sobre doação de sangue' %}</h1>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default" itemscope itemtype="http://schema.org/Question">
+        <div class="panel-heading" role="tab" id="heading1">
+            <h2 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#faq1" aria-expanded="true" aria-controls="faq1" itemprop="url">
+                    <span itemprop="name">{% trans 'Quem pode doar sangue?' %}</span>
+                </a>
+            </h2>
+        </div>
+        <div id="faq1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1" itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+            <div class="panel-body" itemprop="text">
+                {% blocktrans %}Quem estiver em boas condições de saúde, tendo entre 16 e 69 anos (desde que a primeira doação tenha sido feita até 60 anos e menores de 18 anos apresentando a autorização de um responsável), pesando no mínimo 50kg, que esteja descansado tendo dormido pelo menos 6 horas nas últimas 24 horas, que esteja bem alimentado evitando alimentação gordurosa nas 4 horas que antecedem a doação e apresentando documento de identificação original com foto.{% endblocktrans %}
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" itemscope itemtype="http://schema.org/Question">
+        <div class="panel-heading" role="tab" id="heading2">
+            <h2 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#faq2" aria-expanded="true" aria-controls="faq2" itemprop="url">
+                    <span itemprop="name">{% trans 'Doar sangue é seguro?' %}</span>
+                </a>
+            </h2>
+        </div>
+        <div id="faq2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2" itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+            <div class="panel-body" itemprop="text">
+                {% blocktrans %}Sim, primeiramente o doador passa por uma consulta, antes de doar, onde são avaliadas suas condições clínicas e durante a doação todo o material utilizado, inclusive os kits são estéreis, descartáveis e apirogênicos (não causam febre).{% endblocktrans %}
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" itemscope itemtype="http://schema.org/Question">
+        <div class="panel-heading" role="tab" id="heading3">
+            <h2 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#faq3" aria-expanded="true" aria-controls="faq3" itemprop="url">
+                    <span itemprop="name">{% trans 'Qual a quantidade de sangue coletada na doação?' %}</span>
+                </a>
+            </h2>
+        </div>
+        <div id="faq3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3" itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+            <div class="panel-body" itemprop="text">
+                {% blocktrans %}Em cada doação, são coletados aproximadamente 450 ml de sangue que representa menos do que 10% do volume sanguíneo total de um adulto, por esse motivo só é permitida a doação por pessoas acima de 50 kg.{% endblocktrans %}
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" itemscope itemtype="http://schema.org/Question">
+        <div class="panel-heading" role="tab" id="heading4">
+            <h2 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#faq4" aria-expanded="true" aria-controls="faq4" itemprop="url">
+                    <span itemprop="name">{% trans 'Com que frequência eu posso doar sangue?' %}</span>
+                </a>
+            </h2>
+        </div>
+        <div id="faq4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4" itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+            <div class="panel-body" itemprop="text">
+                {% blocktrans %}A doação de sangue só deve ser realizada a cada 90 dias para os homens e 120 dias para as mulheres, devido ao tempo de recuperação necessário pelo organismo para repor o sangue doado.{% endblocktrans %}
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" itemscope itemtype="http://schema.org/Question">
+        <div class="panel-heading" role="tab" id="heading5">
+            <h2 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#faq5" aria-expanded="true" aria-controls="faq5" itemprop="url">
+                    <span itemprop="name">{% trans 'Por que os homens podem doar sangue a cada 03 meses e as mulheres a cada 04 meses?' %}</span>
+                </a>
+            </h2>
+        </div>
+        <div id="faq5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5" itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+            <div class="panel-body" itemprop="text">
+                {% blocktrans %}Devido à reposição dos estoques de ferro, que nas mulheres é mais demorada em virtude das perdas durante os ciclos menstruais.{% endblocktrans %}
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" itemscope itemtype="http://schema.org/Question">
+        <div class="panel-heading" role="tab" id="heading6">
+            <h2 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#faq6" aria-expanded="true" aria-controls="faq6" itemprop="url">
+                    <span itemprop="name">{% trans 'Durante o período menstrual, a mulher pode doar sangue?' %}</span>
+                </a>
+            </h2>
+        </div>
+        <div id="faq6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6" itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+            <div class="panel-body" itemprop="text">
+                {% blocktrans %}Sim, não há nenhum risco para a saúde da mulher na doação de sangue.{% endblocktrans %}
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" itemscope itemtype="http://schema.org/Question">
+        <div class="panel-heading" role="tab" id="heading7">
+            <h2 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#faq7" aria-expanded="true" aria-controls="faq7" itemprop="url">
+                    <span itemprop="name">{% trans 'A doação de sangue é permitida durante a amamentação?' %}</span>
+                </a>
+            </h2>
+        </div>
+        <div id="faq7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading7" itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+            <div class="panel-body" itemprop="text">
+                {% blocktrans %}Não. A mulher que está amamentando não pode doar sangue, a menos que o parto tenha ocorrido há mais de um ano.{% endblocktrans %}
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" itemscope itemtype="http://schema.org/Question">
+        <div class="panel-heading" role="tab" id="heading8">
+            <h2 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#faq8" aria-expanded="true" aria-controls="faq8" itemprop="url">
+                    <span itemprop="name">{% trans 'Se eu doar sangue uma vez, sou obrigado a doar outras vezes?' %}</span>
+                </a>
+            </h2>
+        </div>
+        <div id="faq8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading8" itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+            <div class="panel-body" itemprop="text">
+                {% blocktrans %}Não. A doação de sangue é um ato voluntário que depende unicamente da iniciativa de cada cidadão.{% endblocktrans %}
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" itemscope itemtype="http://schema.org/Question">
+        <div class="panel-heading" role="tab" id="heading9">
+            <h2 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#faq9" aria-expanded="true" aria-controls="faq9" itemprop="url">
+                    <span itemprop="name">{% trans 'Que cuidados eu devo ter após realizar a doação?' %}</span>
+                </a>
+            </h2>
+        </div>
+        <div id="faq9" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading9" itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+            <div class="panel-body" itemprop="text">
+                {% blocktrans %}O doador deve alimentar-se bem, ingerir bastante líquido e evitar bebidas alcoólicas, bem como, fumar nas primeiras duas horas e esforço físico no dia da doação. Em caso do aparecimento de queixas nos primeiros 15 dias após a doação, o doador deve retornar ao local onde foi realizada a doação e informar as queixas para esclarecimentos.{% endblocktrans %}
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" itemscope itemtype="http://schema.org/Question">
+        <div class="panel-heading" role="tab" id="heading10">
+            <h2 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#faq10" aria-expanded="true" aria-controls="faq10" itemprop="url">
+                    <span itemprop="name">{% trans 'O que é feito com o sangue doado?' %}</span>
+                </a>
+            </h2>
+        </div>
+        <div id="faq10" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading10" itemprop="suggestedAnswer acceptedAnswer" itemscope itemtype="http://schema.org/Answer">
+            <div class="panel-body" itemprop="text">
+                {% blocktrans %}O sangue é separado em hemocomponentes, como concentrado de hemácias, concentrado de plaquetas e plasma fresco. Após a realização dos testes laboratoriais, esses hemocomponentes são enviados aos hospitais para serem usados no tratamento de pacientes.{% endblocktrans %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

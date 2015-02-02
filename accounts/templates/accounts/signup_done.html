@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}{% trans 'Eu me tornei um doador de sangue' %}{% endblock %}
+{% block description %}{% trans 'Se disponibilize como doador de sangue e ajude as pessoas que precisam de sangue compatível com o seu.' %}{% endblock %}
+{% block keywords %}{% trans 'sangue, doar, doação, doadores, hemocentro, tipo sanguíneo, hemoterapia, O+, O-, A-, A+, B-, B+, AB-, AB+' %}{% endblock %}
+{% block og_title %}{% trans 'Eu me tornei um doador de sangue' %}{% endblock %}
+{% block og_description %}{% trans 'Se disponibilize como doador de sangue e ajude as pessoas que precisam de sangue compatível com o seu. Divulgue esse link com o seus amigos nas redes sociais.' %}{% endblock %}
+
+{% block content %}
+
+<h1 class="page-header page-success">{% trans 'Muito obrigado!' %}</h1>
+
+{% include 'messages.html' %}
+
+<div class="row">
+    <div class="col-md-12">
+        <p>{% blocktrans %}Aproveite e ajude-nos a espalhar essa mensagem pelas redes sociais para que mais pessoas se informem e se disponibilizem como doador de sangue.{% endblocktrans %}</p>
+        <a class="btn btn-facebook" id="facebook-share-button" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Feusoudoador.com.br%2Feu-sou-doador-de-sangue%2F"><i class="fa fa-lg fa-facebook"></i> {% trans 'Compartilhe no Facebook' %}</a>
+        <a class="btn btn-twitter" id="twitter-share-button" target="_blank" href="{% blocktrans %}https://twitter.com/intent/tweet?button_hashtag=DoeSangue&text=Eu%20me%20disponibilizei%20como%20doador%20de%20sangue.%20Seja%20voc%C3%AA%20tamb%C3%A9m%20um%20doador%2C%20acessando&url=http://eusoudoador.com.br&related=eusoudoadorbr{% endblocktrans %}"><i class="fa fa-lg fa-twitter"></i> {% trans 'Tweet essa mensagem' %}</a>
+    </div>
+</div>
+{% endblock %}

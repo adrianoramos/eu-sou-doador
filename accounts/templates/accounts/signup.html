@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}{% trans 'Quero ser doador de sangue' %}{% endblock %}
+{% block description %}{% trans 'Se disponibilize como doador de sangue, não leva nem um minuto. Vamos avisá-lo sempre que alguém próximo a sua região precisar de doação de sangue.' %}{% endblock %}
+{% block keywords %}{% trans 'sangue, doar, doação, doadores, hemocentro, tipo sanguíneo, hemoterapia, O+, O-, A-, A+, B-, B+, AB-, AB+' %}{% endblock %}
+{% block og_title %}{% trans 'Seja um doador de sangue' %}{% endblock %}
+{% block og_description %}{% trans 'Se disponibilize como doador de sangue e ajude as pessoas que precisam de sangue compatível com o seu.' %}{% endblock %}
+
+{% block content %}
+
+<h1 class="page-header page-success">{% trans 'Quero doar sangue' %} <small class="hidden-xs">{% trans 'Sua atitude é a esperança de muitos pacientes.' %}</small></h1>
+
+{% include 'messages.html' %}
+
+{% if user_form.non_field_errors %}
+    {% for error in user_form.non_field_errors %}
+<div class="alert alert-warning"><span>{{ error|escape }}</span></div>
+    {% endfor %}
+{% endif %}
+
+{% if user_profile_form.non_field_errors %}
+    {% for error in user_profile_form.non_field_errors %}
+<div class="alert alert-warning"><span>{{ error|escape }}</span></div>
+    {% endfor %}
+{% endif %}
+
+<div class="alert alert-default alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans 'Fechar' %}</span></button>
+    <strong>{% trans 'Quem pode doar sangue?' %}</strong>
+    <ul class="list-unstyled">
+        <li class="list-group-item-text"><i class="fa fa-check fa-fw"></i> {% trans 'Pessoas entre 16 e 69 anos. Mas, atenção: se o candidato à doação de sangue tem entre 16 e 17 anos ou mais de 60 anos, é  importante conhecer as Normas e documentos necessários para doação de sangue. Os demais critérios são válidos para todos.' %}</li>
+        <li class="list-group-item-text"><i class="fa fa-check fa-fw"></i> {% trans 'Quem tem e está com boa saúde;' %}</li>
+        <li class="list-group-item-text"><i class="fa fa-check fa-fw"></i> {% trans 'Quem pesa acima de 50 kg;' %}</li>
+        <li class="list-group-item-text"><i class="fa fa-check fa-fw"></i> {% trans 'Quem dormiu bem na noite anterior à doação;' %}</li>
+        <li class="list-group-item-text"><i class="fa fa-check fa-fw"></i> {% trans 'Mulheres, mesmo se menstruadas ou em uso de anticoncepcionais.' %}</li>
+    </ul>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <form role="form" method="post" action="{% url 'signup' %}">
+            {% csrf_token %}
+
+            <fieldset>
+                <legend class="small text-muted">{% trans 'Dados pessoais' %}</legend>
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="form-group{% if user_form.name.errors %} has-error{% endif %}">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-user fa-fw"></i></div>
+                                <label for="{{ user_form.name.auto_id }}" class="sr-only">{{ user_form.name.label }}</label>
+                                {% render_field user_form.name class="form-control" placeholder=user_form.name.label required="required" %}
+                            </div>
+                            <span class="help-block">
+                                {{ user_form.name.help_text|escape }}
+                                {% if user_form.name.errors %}
+                                    {% for error in user_form.name.errors %}{{ error|escape }}{% endfor %}
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group{% if user_profile_form.gender.errors %} has-error{% endif %}">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-male fa-fw"></i></div>
+                                <label for="{{ user_profile_form.gender.auto_id }}" class="sr-only">{{ user_profile_form.gender.label }}</label>
+                                {% render_field user_profile_form.gender class="form-control" required="required" %}
+                            </div>
+                            <span class="help-block">
+                                {{ user_profile_form.gender.help_text|escape }}
+                                {% if user_profile_form.gender.errors %}
+                                    {% for error in user_profile_form.gender.errors %}{{ error|escape }}{% endfor %}
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group{% if user_profile_form.birth_date.errors %} has-error{% endif %}">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></div>
+                                <label for="{{ user_profile_form.birth_date.auto_id }}" class="sr-only">{{ user_profile_form.birth_date.label }}</label>
+                                {% render_field user_profile_form.birth_date class="form-control" placeholder=user_profile_form.birth_date.label required="required" %}
+                            </div>
+                            <span class="help-block">
+                                {{ user_profile_form.birth_date.help_text|escape }}
+                                {% if user_profile_form.birth_date.errors %}
+                                    {% for error in user_profile_form.birth_date.errors %}{{ error|escape }}{% endfor %}
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group{% if user_profile_form.blood_type.errors %} has-error{% endif %}">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-tint fa-fw"></i></div>
+                                <label for="{{ user_profile_form.blood_type.auto_id }}" class="sr-only">{{ user_profile_form.blood_type.label }}</label>
+                                {% render_field user_profile_form.blood_type class="form-control" required="required" %}
+                            </div>
+                            <span class="help-block">
+                                {{ user_profile_form.blood_type.help_text|escape }}
+                                {% if user_profile_form.blood_type.errors %}
+                                    {% for error in user_profile_form.blood_type.errors %}{{ error|escape }}{% endfor %}
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend class="small text-muted">{% trans 'Localização' %}</legend>
+                <div class="row">
+
+                    <div class="col-md-9">
+                        <div class="form-group{% if user_profile_form.location.errors or user_profile_form.position.errors %} has-error{% endif %}">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></div>
+                                <label for="{{ user_profile_form.location.auto_id }}" class="sr-only">{{ user_profile_form.location.label }}</label>
+                                {% render_field user_profile_form.location class="form-control" placeholder=user_profile_form.location.help_text required="required" %}
+                            </div>
+                            {% render_field user_profile_form.position type="hidden" %}
+                            <input id="error_message" type="hidden" value="{% trans 'Sua localização não pode ser determinada.' %}">
+                            <span class="help-block">
+                                {{ user_profile_form.position.help_text|escape }}
+                                {% if user_profile_form.location.errors %}
+                                    {% for error in user_profile_form.location.errors %}{{ error|escape }}{% endfor %}
+                                {% endif %}
+                                {% if user_profile_form.position.errors %}
+                                    {% for error in user_profile_form.position.errors %}{{ error|escape }}{% endfor %}
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default btn-block" id="detect_location"><i class="fa fa-crosshairs fa-fw"></i> {% trans 'Detectar minha localização' %}</button>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend class="small text-muted">{% trans 'Dados para contato e acesso' %}</legend>
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="form-group{% if user_profile_form.mobile_phone.errors %} has-error{% endif %}">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-mobile fa-fw"></i></div>
+                                <label for="{{ user_profile_form.mobile_phone.auto_id }}" class="sr-only">{{ user_profile_form.mobile_phone.label }}</label>
+                                {% render_field user_profile_form.mobile_phone type="tel" class="form-control" placeholder=user_profile_form.mobile_phone.label %}
+                            </div>
+                            <span class="help-block">
+                                {{ user_profile_form.mobile_phone.help_text|escape }}
+                                {% if user_profile_form.mobile_phone.errors %}
+                                    {% for error in user_profile_form.mobile_phone.errors %}{{ error|escape }}{% endfor %}
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group{% if user_form.email.errors %} has-error{% endif %}">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></div>
+                                <label for="{{ user_form.email.auto_id }}" class="sr-only">{{ user_form.email.label }}</label>
+                                {% render_field user_form.email type="email" class="form-control" placeholder=user_form.email.label required="required" %}
+                            </div>
+                            <span class="help-block">
+                                {{ user_form.email.help_text|escape }}
+                                {% if user_form.email.errors %}
+                                    {% for error in user_form.email.errors %}{{ error|escape }}{% endfor %}
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group{% if user_form.password.errors %} has-error{% endif %}">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-asterisk fa-fw"></i></div>
+                                <label for="{{ user_form.password.auto_id }}" class="sr-only">{{ user_form.password.label }}</label>
+                                {% render_field user_form.password class="form-control" placeholder=user_form.password.label required="required" %}
+                            </div>
+                            <span class="help-block">
+                                {{ user_form.password.help_text|escape }}
+                                {% if user_form.password.errors %}
+                                    {% for error in user_form.password.errors %}{{ error|escape }}{% endfor %}
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+
+            {% url 'terms_and_privacy' as terms_and_privacy %}
+            {% url 'who_can_donate' as who_can_donate %}
+            {% url 'who_cant_donate' as who_cant_donate %}
+            <p class="text-muted text-justify">{% blocktrans %}Ao clicar em "Cadastrar-me" informo que meus dados são verdadeiros e também estar apto a ser doador de acordo com as condições de <a href="{{ who_can_donate }}" target="_blank">quem pode doar</a> e <a href="{{ who_cant_donate }}" target="_blank">quem não pode doar</a> sangue e concorda com os <a href="{{ terms_and_privacy }}" target="_blank">termos de uso</a> do serviço.{% endblocktrans %}</p>
+
+            <button class="btn btn-success" id="submit" type="submit">{% trans 'Cadastrar-me' %}</button>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places&amp;language=pt-BR"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/geocomplete/1.4/jquery.geocomplete.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.mask/0.9.0/jquery.mask.min.js"></script>
+    <script src="{% static 'js/accounts.min.js' %}"></script>
+{% endblock %}
