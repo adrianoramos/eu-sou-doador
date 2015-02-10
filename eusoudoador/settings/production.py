@@ -56,9 +56,9 @@ DEFAULT_FROM_EMAIL = 'noreply@eusoudoador.com.br'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'eusoudoador',
-        'USER': 'eusoudoador',
-        'PASSWORD': '',
+        'NAME': 'nomebancodedados',
+        'USER': 'nomeusuario',
+        'PASSWORD': 'senhabancodedados',
         'HOST': 'localhost',
         'PORT': '5432',
     }
