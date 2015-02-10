@@ -1,5 +1,5 @@
 #!-*- coding: utf-8 -*-
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 
 from .models import BloodCenter, Address
@@ -25,7 +25,7 @@ def bloodcenters_by_state(request, state):
 
 
 def bloodcenter_detail(request, slug):
-    bloodcenter = BloodCenter.objects.get(slug=slug)
+    bloodcenter = get_object_or_404(BloodCenter, slug=slug)
     return render_to_response('bloodcenters/bloodcenter_detail.html', {
         'bloodcenter': bloodcenter
     }, context_instance=RequestContext(request))
